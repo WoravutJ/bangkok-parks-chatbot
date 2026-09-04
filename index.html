@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>สวนกรุงเทพ • Bangkok Parks Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canopy:#16302A;
+    --canopy-deep:#0D211C;
+    --moss:#3E6B52;
+    --sand:#F3EEE1;
+    --sand-card:#FBF9F3;
+    --saffron:#D99A3D;
+    --saffron-deep:#A9711F;
+    --ink:#20261F;
+    --ink-soft:#5B6459;
+    --line:#DAD3BF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Inter','Noto Sans Thai',sans-serif;
+    min-height:100vh;
+  }
+  .wrap{
+    max-width:720px;
+    margin:0 auto;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    background:var(--sand);
+  }
+
+  /* header */
+  header{
+    background:var(--canopy);
+    color:var(--sand);
+    padding:28px 24px 22px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:"";
+    position:absolute;
+    right:-40px; top:-40px;
+    width:180px; height:180px;
+    border-radius:50%;
+    background:var(--moss);
+    opacity:0.35;
+  }
+  .eyebrow{
+    font-family:'Noto Sans Thai',sans-serif;
+    font-size:13px;
+    color:var(--saffron);
+    letter-spacing:0.02em;
+    margin:0 0 6px;
+    position:relative;
+  }
+  h1{
+    font-family:'Fraunces','Noto Sans Thai',serif;
+    font-weight:500;
+    font-size:30px;
+    line-height:1.15;
+    margin:0 0 8px;
+    position:relative;
+  }
+  header p.tagline{
+    margin:0;
+    font-size:14.5px;
+    color:#CFE0D3;
+    max-width:46ch;
+    position:relative;
+    line-height:1.55;
+  }
+  .credit{
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px solid rgba(255,255,255,0.16);
+    font-size:12.5px;
+    color:#AEC4B4;
+    position:relative;
+    display:flex;
+    gap:8px;
+    align-items:baseline;
+    flex-wrap:wrap;
+  }
+  .credit b{
+    color:var(--sand);
+    font-weight:500;
+  }
+
+  /* quick topics */
+  .topics{
+    display:flex;
+    gap:8px;
+    padding:14px 24px;
+    overflow-x:auto;
+    background:var(--sand);
+    border-bottom:1px solid var(--line);
+  }
+  .topics::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:none;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--sand-card);
+    color:var(--canopy);
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    white-space:nowrap;
+    font-family:'Noto Sans Thai',sans-serif;
+  }
+  .chip:hover{border-color:var(--moss);}
+
+  /* chat area */
+  main{
+    flex:1;
+    padding:20px 24px 8px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    overflow-y:auto;
+  }
+  .msg{
+    max-width:82%;
+    padding:12px 15px;
+    border-radius:14px;
+    font-size:14.5px;
+    line-height:1.62;
+    white-space:pre-wrap;
+    font-family:'Noto Sans Thai',sans-serif;
+  }
+  .msg.bot{
+    align-self:flex-start;
+    background:var(--sand-card);
+    border:1px solid var(--line);
+    border-top-left-radius:4px;
+    color:var(--ink);
+  }
+  .msg.user{
+    align-self:flex-end;
+    background:var(--canopy);
+    color:var(--sand);
+    border-top-right-radius:4px;
+  }
+  .msg.bot.typing{
+    display:flex;
+    gap:5px;
+    align-items:center;
+    padding:14px 16px;
+  }
+  .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--moss);
+    animation:blink 1.1s infinite ease-in-out;
+  }
+  .dot:nth-child(2){animation-delay:0.18s;}
+  .dot:nth-child(3){animation-delay:0.36s;}
+  @keyframes blink{
+    0%,80%,100%{opacity:0.25; transform:translateY(0);}
+    40%{opacity:1; transform:translateY(-2px);}
+  }
+  .msg-label{
+    font-size:11px;
+    color:var(--ink-soft);
+    margin:0 2px 2px;
+    font-family:'Inter',sans-serif;
+  }
+
+  /* composer */
+  form.composer{
+    display:flex;
+    gap:10px;
+    padding:16px 24px 22px;
+    background:var(--sand);
+    border-top:1px solid var(--line);
+  }
+  form.composer input{
+    flex:1;
+    border:1px solid var(--line);
+    background:var(--sand-card);
+    border-radius:999px;
+    padding:12px 18px;
+    font-size:14.5px;
+    font-family:'Noto Sans Thai',sans-serif;
+    color:var(--ink);
+    outline:none;
+  }
+  form.composer input:focus{border-color:var(--moss);}
+  form.composer button{
+    border:none;
+    background:var(--saffron);
+    color:#2B1D06;
+    font-weight:600;
+    border-radius:999px;
+    padding:0 22px;
+    font-size:14px;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  form.composer button:disabled{
+    opacity:0.5;
+    cursor:default;
+  }
+  form.composer button:not(:disabled):hover{background:var(--saffron-deep); color:var(--sand);}
+
+  .disclaimer{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    padding:0 24px 16px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">คู่มือสวนสาธารณะกรุงเทพฯ</p>
+    <h1>Bangkok Parks Guide</h1>
+    <p class="tagline">ถามเกี่ยวกับสวนสาธารณะในกรุงเทพฯ — เวลาเปิด-ปิด กิจกรรม เส้นทางวิ่ง ที่จอดรถ และสวนที่เหมาะกับคุณ</p>
+    <div class="credit">
+      <span>จัดทำโดย</span>
+      <b>68076054 วรวุฒิ จรุงคงเดช</b>
+    </div>
+  </header>
+
+  <div class="topics" id="topics">
+    <button class="chip" type="button" data-q="สวนลุมพินีเปิดกี่โมง มีกิจกรรมอะไรบ้าง">สวนลุมพินี</button>
+    <button class="chip" type="button" data-q="สวนเบญจกิติเหมาะกับการวิ่งไหม มีเส้นทางยาวแค่ไหน">สวนเบญจกิติ</button>
+    <button class="chip" type="button" data-q="สวนจตุจักรกับสวนรถไฟต่างกันอย่างไร ไปยังไง">สวนจตุจักร / สวนรถไฟ</button>
+    <button class="chip" type="button" data-q="แนะนำสวนสาธารณะที่เหมาะพาสุนัขไปเดินเล่นในกรุงเทพ">พาสัตว์เลี้ยงไปเดินเล่น</button>
+    <button class="chip" type="button" data-q="แนะนำสวนสาธารณะที่เหมาะพาเด็กเล็กไปเล่น มีสนามเด็กเล่น">พาเด็กไปเล่น</button>
+  </div>
+
+  <main id="chat"></main>
+
+  <form class="composer" id="composer">
+    <input id="input" type="text" placeholder="พิมพ์คำถามเกี่ยวกับสวนสาธารณะในกรุงเทพฯ..." autocomplete="off" />
+    <button id="sendBtn" type="submit">ส่ง</button>
+  </form>
+  <p class="disclaimer">ข้อมูลทั่วไปสำหรับการวางแผนเที่ยว โปรดตรวจสอบเวลาเปิด-ปิดล่าสุดกับหน่วยงานที่เกี่ยวข้องอีกครั้ง</p>
+
+</div>
+
+<script>
+const chat = document.getElementById('chat');
+const form = document.getElementById('composer');
+const input = document.getElementById('input');
+const sendBtn = document.getElementById('sendBtn');
+
+const SYSTEM_PROMPT = `You are "Bangkok Parks Guide", a friendly assistant that helps people learn about public parks in Bangkok, Thailand (e.g. Lumpini Park, Benjakitti Park, Benjasiri Park, Chatuchak Park, Wachirabenchathat Park / Suan Rot Fai, Santiphap Park, Rommaninat Park, Romklao Park, Nong Prue and other Bangkok public parks).
+
+Answer questions about: park locations, opening hours, entrance fees (most are free), facilities (running tracks, cycling paths, playgrounds, dog-friendly areas, lakes, exercise equipment), nearby BTS/MRT stations, best times to visit, events, and which park suits a given need (jogging, picnics, kids, pets, photography).
+
+Reply in the same language the user used (Thai or English). Keep answers concise, practical, and warm — like a knowledgeable local friend. Use short paragraphs or a few bullet points, not long essays. If you're not fully certain about a specific detail (like exact current hours or fees), say so and suggest the person confirm with the Bangkok Metropolitan Administration (BMA) or the park directly. If a question is unrelated to Bangkok parks, gently redirect the conversation back to what this guide can help with.`;
+
+let history = [];
+
+function addMessage(role, text){
+  const div = document.createElement('div');
+  div.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
+}
+
+function addTyping(){
+  const div = document.createElement('div');
+  div.className = 'msg bot typing';
+  div.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
+}
+
+async function askBot(userText){
+  history.push({ role: 'user', content: userText });
+  const typingEl = addTyping();
+  sendBtn.disabled = true;
+  input.disabled = true;
+
+  try{
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: SYSTEM_PROMPT,
+        messages: history
+      })
+    });
+    const data = await response.json();
+    const textBlock = (data.content || []).find(b => b.type === 'text');
+    const reply = textBlock ? textBlock.text : 'ขออภัย ไม่สามารถตอบคำถามนี้ได้ในขณะนี้ ลองใหม่อีกครั้งนะคะ';
+    typingEl.remove();
+    addMessage('bot', reply);
+    history.push({ role: 'assistant', content: reply });
+  }catch(err){
+    typingEl.remove();
+    addMessage('bot', 'เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้งค่ะ');
+    console.error('Chat error:', err);
+  }finally{
+    sendBtn.disabled = false;
+    input.disabled = false;
+    input.focus();
+  }
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const text = input.value.trim();
+  if(!text) return;
+  addMessage('user', text);
+  input.value = '';
+  askBot(text);
+});
+
+document.getElementById('topics').addEventListener('click', (e) => {
+  const btn = e.target.closest('.chip');
+  if(!btn) return;
+  const q = btn.getAttribute('data-q');
+  addMessage('user', q);
+  askBot(q);
+});
+
+addMessage('bot', 'สวัสดีค่ะ ยินดีต้อนรับสู่คู่มือสวนสาธารณะกรุงเทพฯ 🌳\nอยากรู้เรื่องสวนไหน ลองถามได้เลย เช่น เวลาเปิด-ปิด เส้นทางวิ่ง หรือสวนที่เหมาะกับพาเด็ก/สัตว์เลี้ยงไปเที่ยว');
+</script>
+</body>
+</html>
